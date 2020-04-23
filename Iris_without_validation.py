@@ -162,22 +162,11 @@ while (ans == 'y'):
                             # Perceptron με train_test_split σε X_train, X_test
                             X_train, X_test, y_train, y_test = ms.train_test_split(x, t, test_size=0.1)
 
-                            ###########################################################
-                            # X_train, X_val, y_train, y_val = ms.train_test_split(X_train, y_train, test_size=0.1)
-                            ###########################################################
-
                             # Εμφάνιση των χωρισμένων προτύπων
                             plt.figure()
                             plt.subplot(311)
                             plt.plot(X_train[:,0], X_train[:,2], 'b.')
                             plt.title("X-train με train_test_split - Perceptron - " + str(k+1) + "ο fold")
-
-                            ###########################################################
-                            # plt.subplot(312)
-                            # plt.plot(X_val[:,0], X_val[:,2], 'r.')
-                            # plt.title("X-val με train_test_split - Perceptron")
-                            ###########################################################
-
                             plt.subplot(312)
                             plt.plot(X_test[:,0], X_test[:,2], 'r.')
                             plt.title("X-test με train_test_split - Perceptron - " + str(k+1) + "ο fold")
@@ -186,11 +175,6 @@ while (ans == 'y'):
 
                             # Perceptron για X_train με train_test_split
                             print(perceptron(X_train, y_train, maxepochs, beta))
-
-                            ###########################################################
-                            # Perceptron για X_val με train_test_split
-                            # print(perceptron(X_val, y_val, maxepochs, beta))
-                            ###########################################################
 
                             # Perceptron για X_test με train_test_split
                             print(perceptron(X_test, y_test, maxepochs, beta))
@@ -217,29 +201,13 @@ while (ans == 'y'):
                             # Αλλαγή πινάκων στόχου απο 0 σε -1
                             X_train, X_test, y_train, y_test = ms.train_test_split(x, t, test_size=0.1)
                             y_test[y_test == 0] = -1
-
-                            ###########################################################
-                            # X_train, X_val, y_train, y_val = ms.train_test_split(X_train, y_train, test_size=0.1)
-                            ###########################################################
-
                             y_train[y_train == 0] = -1
-
-                            ###########################################################
-                            # y_val[y_val == 0] = -1
-                            ###########################################################
 
                             # Εμφάνιση των χωρισμένων προτύπων
                             plt.figure()
                             plt.subplot(311)
                             plt.plot(X_train[:,0], X_train[:,2], 'b.')
                             plt.title("X-train με train_test_split - Adaline - " + str(k+1) + "ο fold")
-
-                            ###########################################################
-                            # plt.subplot(312)
-                            # plt.plot(X_val[:,0], X_val[:,2], 'r.')
-                            # plt.title("X-val με train_test_split - Adaline")
-                            ###########################################################
-
                             plt.subplot(313)
                             plt.plot(X_test[:,0], X_test[:,2], 'r.')
                             plt.title("X-test με train_test_split - Adaline - " + str(k+1) + "ο fold")
@@ -248,11 +216,6 @@ while (ans == 'y'):
 
                             # Adaline για X_train με train_test_split
                             print(adaline(X_train, y_train, maxepochs, beta, minmse))
-
-                            ###########################################################
-                            # Adaline για X_val με train_test_split
-                            # print(adaline(X_val, y_val, maxepochs, beta, minmse))
-                            ###########################################################
 
                             # Adaline για X_test με train_test_split
                             print(adaline(X_test, y_test, maxepochs, beta, minmse))
@@ -300,36 +263,15 @@ while (ans == 'y'):
                             # Αλλαγή πινάκων στόχου απο 0 σε -1 και θέτω ως τύπο δεδομένων το float64 για να λειτουργήσει το pinv
                             X_train, X_test, y_train, y_test = ms.train_test_split(x, t, test_size=0.1)
                             y_test[y_test == 0] = -1
-
-                            ###########################################################
-                            # X_train, X_val, y_train, y_val = ms.train_test_split(X_train, y_train, test_size=0.1)
-                            ###########################################################
-
                             y_train[y_train == 0] = -1
-
-                            ###########################################################
-                            # y_val[y_val == 0] = -1
-                            ###########################################################
-
                             X_train = X_train.astype('float64')
                             X_test = X_test.astype('float64')
 
-                            ###########################################################
-                            # X_val = X_val.astype('float64')
-                            ###########################################################
-
-                            # Εμφάνιση των χωρισμένων προτύπων
+                          # Εμφάνιση των χωρισμένων προτύπων
                             plt.figure()
                             plt.subplot(311)
                             plt.plot(X_train[:,0], X_train[:,2], 'b.')
                             plt.title("X-train με train_test_split - Λύση Ελαχίστων Τετραγώνων - " + str(k+1) + "ο fold")
-
-                            ###########################################################
-                            # plt.subplot(312)
-                            # plt.plot(X_val[:,0], X_val[:,2], 'r.')
-                            # plt.title("X-val με train_test_split - Λύση Ελαχίστων Τετραγώνων")
-                            ###########################################################
-
                             plt.subplot(313)
                             plt.plot(X_test[:,0], X_test[:,2], 'r.')
                             plt.title("X-test με train_test_split - Λύση Ελαχίστων Τετραγώνων - " + str(k+1) + "ο fold")
@@ -350,23 +292,6 @@ while (ans == 'y'):
                             plt.plot(v, 'ro', y_train, 'b.', markersize=4)
                             plt.title("X-train - Λύση Ελαχίστων Τετραγώνων - " + str(k+1) + "ο fold")
                             plt.show()
-
-                            ###########################################################
-                            # Λύση ελαχίστων τετραγώνων για X_val με train_test_split
-                            # pinv_x_val = np.linalg.pinv(X_val)
-                            # w = np.dot(pinv_x_val, y_val)
-                            # v = np.zeros(len(X_val), dtype=np.float)
-                            # for i, z in enumerate(X_val):
-                            #        u = np.dot(X_val[i], w)
-                            #        if (u >= 0):
-                            #               v[i] = 1
-                            #        else:
-                            #               v[i] = -1
-                            # plt.figure(1)
-                            # plt.plot(v, 'ro', y_val, 'b.', markersize=4)
-                            # plt.title("X-val - Λύση Ελαχίστων Τετραγώνων")
-                            # plt.show()
-                            ###########################################################
 
                             # Λύση ελαχίστων τετραγώνων για X_test με train_test_split
                             pinv_x_test = np.linalg.pinv(X_test)
