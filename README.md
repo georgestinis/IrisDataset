@@ -1,5 +1,6 @@
 # IrisDataset
-Πρόβλημα Δυαδικής Ταξινόμησης του Iris Dataset με Perceptron, Adaline και Λύση Ελαχίστων Τετραγώνων
+
+## Πρόβλημα Δυαδικής Ταξινόμησης του Iris Dataset με Perceptron, Adaline και Λύση Ελαχίστων Τετραγώνων
 Table of Contents
 =================
    * [Εγκατάσταση](#εγκατάσταση)
