@@ -1,5 +1,3 @@
-
-
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -34,6 +32,20 @@ def perceptron(xtrain, ttrain, maxepochs, beta):
               if (epoch <= maxepochs) & (flag == 1):
                      plt.clf()
        return w
+
+def perceptron_w(xtest, ttest, w):
+       plt.figure()
+       u = np.zeros(len(xtest), dtype=float)
+       v = np.zeros(len(xtest), dtype=int)
+       for i, x in enumerate(xtest):
+              u[i] = np.dot(xtest[i], w)
+              if (u[i] >= 0):
+                     v[i] = 1
+              else:
+                     v[i] = 0
+       plt.plot(v, 'ro', ttest, 'b.', markersize=4)
+       plt.title("Perceptron")
+       plt.show()
 
 def adaline(xtrain, ttrain, maxepochs, beta, minmse):
        # Αρχικοποιώ στο w τυχαίες τιμές
@@ -71,6 +83,19 @@ def adaline(xtrain, ttrain, maxepochs, beta, minmse):
               print(mse)
        return w
               
+def adaline_w(xtest, ttest, w):
+       plt.figure()
+       u = np.zeros(len(xtest), dtype=float)
+       v = np.zeros(len(xtest), dtype=int)
+       for i, x in enumerate(xtest):
+              u[i] = np.dot(xtest[i], w)
+              if (u[i] >= 0):
+                     v[i] = 1
+              else:
+                     v[i] = -1
+       plt.plot(v, 'ro', ttest, 'b.', markersize=4)
+       plt.title("Perceptron")
+       plt.show()              
 
 # Διαβάζω το αρχείο προτύπων
 data = pd.read_csv('iris.data', header=None).values
@@ -152,9 +177,9 @@ while (ans == 'y'):
                      maxepochs = int(input ('Δώσε μια ακέραια τιμή για το Μέγιστο Αριθμό επαναλήψεων: '))
                      beta = float(input ('Δώσε μια πραγματική τιμή για το Συντελεστή Εκπαίδευσης: '))
                      # Perceptron για xtrain
-                     print(perceptron(xtrain, ttrain, maxepochs, beta))
+                     w = perceptron(xtrain, ttrain, maxepochs, beta)
                      # Perceptron για xtest
-                     print(perceptron(xtest, ttest, maxepochs, beta))
+                     perceptron_w(xtest, ttest, w)
                      # Perceptron με train_test_split σε X_train, X_test, X_val
                      X_train, X_test, y_train, y_test = ms.train_test_split(x, t, test_size=0.1)
                      X_train, X_val, y_train, y_val = ms.train_test_split(X_train, y_train, test_size=0.1)
@@ -172,11 +197,11 @@ while (ans == 'y'):
                      plt.tight_layout()
                      plt.show()
                      # Perceptron για X_train με train_test_split
-                     print(perceptron(X_train, y_train, maxepochs, beta))
+                     w = perceptron(X_train, y_train, maxepochs, beta)
                      # Perceptron για X_val με train_test_split
-                     print(perceptron(X_val, y_val, maxepochs, beta))
+                     perceptron_w(X_val, y_val, w)
                      # Perceptron για X_test με train_test_split
-                     print(perceptron(X_test, y_test, maxepochs, beta))
+                     perceptron_w(X_test, y_test, w)
               elif (choice_2 == 2):
                      # Αλλαγή πινάκων στόχου απο 0 σε -1
                      ttrain1 = ttrain.copy()
@@ -188,9 +213,9 @@ while (ans == 'y'):
                      beta = float(input ('Δώσε μια πραγματική τιμή για το Συντελεστή Εκπαίδευσης: '))
                      minmse = float(input ('Δώσε μια πραγματική τιμή για το Ελάχιστο Σφάλμα: '))
                      # Adaline για xtrain
-                     print(adaline(xtrain, ttrain1, maxepochs, beta, minmse))
+                     w = adaline_w(xtrain, ttrain1, maxepochs, beta, minmse)
                      # Adaline για xtest
-                     print(adaline(xtest, ttest1, maxepochs, beta, minmse))
+                     adaline_w(xtest, ttest1, w)
                      # Adaline με train_test_split σε X_train, X_test, X_val
                      # Αλλαγή πινάκων στόχου απο 0 σε -1
                      X_train, X_test, y_train, y_test = ms.train_test_split(x, t, test_size=0.1)
@@ -212,11 +237,11 @@ while (ans == 'y'):
                      plt.tight_layout()
                      plt.show()
                      # Adaline για X_train με train_test_split
-                     print(adaline(X_train, y_train, maxepochs, beta, minmse))
+                     adaline(X_train, y_train, maxepochs, beta, minmse)
                      # Adaline για X_val με train_test_split
-                     print(adaline(X_val, y_val, maxepochs, beta, minmse))
+                     adaline_w(X_val, y_val, w)
                      # Adaline για X_test με train_test_split
-                     print(adaline(X_test, y_test, maxepochs, beta, minmse))
+                     adaline_w(X_test, y_test, w)
               elif (choice_2 == 3):
                      # Αλλαγή πινάκων στόχου απο 0 σε -1 και θέτω ως τύπο δεδομένων το float64 για να λειτουργήσει το pinv
                      ttrain1 = ttrain.copy()
@@ -241,7 +266,7 @@ while (ans == 'y'):
                      plt.show()
                      # Λύση ελαχίστων τετραγώνων για xtest
                      pinv_xtest = np.linalg.pinv(xtest)
-                     w = np.dot(pinv_xtest, ttest1)
+                     # w = np.dot(pinv_xtest, ttest1)
                      v = np.zeros(len(xtest), dtype=np.float)
                      for i, z in enumerate(xtest):
                             u = np.dot(xtest[i], w)
@@ -292,7 +317,7 @@ while (ans == 'y'):
                      plt.show()
                      # Λύση ελαχίστων τετραγώνων για X_val με train_test_split
                      pinv_x_val = np.linalg.pinv(X_val)
-                     w = np.dot(pinv_x_val, y_val)
+                     # w = np.dot(pinv_x_val, y_val)
                      v = np.zeros(len(X_val), dtype=np.float)
                      for i, z in enumerate(X_val):
                             u = np.dot(X_val[i], w)
@@ -306,7 +331,7 @@ while (ans == 'y'):
                      plt.show()
                      # Λύση ελαχίστων τετραγώνων για X_test με train_test_split
                      pinv_x_test = np.linalg.pinv(X_test)
-                     w = np.dot(pinv_x_test, y_test)
+                     # w = np.dot(pinv_x_test, y_test)
                      v = np.zeros(len(X_test), dtype=np.float)
                      for i, z in enumerate(X_test):
                             u = np.dot(X_test[i], w)
